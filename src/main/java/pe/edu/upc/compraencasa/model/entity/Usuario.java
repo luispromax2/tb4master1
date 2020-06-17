@@ -56,3 +56,16 @@ public class Usuario {
 	
 	// Getter y setter
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
