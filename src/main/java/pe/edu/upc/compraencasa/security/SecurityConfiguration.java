@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import pe.edu.upc.compraencasa.security.LoggingAccessDeniedHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -18,6 +21,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private UsuarioDetailsService usuarioDetailsService;
 	
+	@Autowired
+	private LoggingAccessDeniedHandler loggingAccessDeniedHandler;
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider() );
@@ -25,8 +31,41 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// TODO Auto-generated method stub
-		super.configure(http);
+		//super.configure(http);
+		http
+			.authorizeRequests()
+				.antMatchers("/compraencasa/index.html").permitAll()
+				.antMatchers("/compraencasa/productos").hasRole("SELLER")
+				.antMatchers("/compraencasa/vendedor").hasAnyRole("SELLER" , "ADMIN")
+				.antMatchers("/compraencasa/cliente").hasAnyRole("BUYER", "ADMIN")
+				.antMatchers("/compraencasa/vendedor/registrar").hasAuthority("ACCESS_ADDUSERVENDEDOR")
+				.antMatchers("/compraencasa/vendedor/edit/**").hasAuthority("ACCESS_EDITVENDEDOR")
+				.antMatchers("/compraencasa/vendedor/del/**").hasAuthority("ACCESS_DELVENDEDOR")
+				.antMatchers("/compraencasa/cliente/registrar").hasAuthority("ACCESS_ADDUSERCOMPRADOR")
+				.antMatchers("/compraencasa/cliente/edit/**").hasAuthority("ACCESS_EDITCOMORADOR")
+				.antMatchers("/compraencasa/cliente/del/**").hasAuthority("ACCESS_DELCOMPRADOR")
+			.and()
+			.formLogin()
+				.loginProcessingUrl("/signin")
+				.loginPage("/compraencasa/login")
+				.usernameParameter("inputUsername")
+				.passwordParameter("inputPassword")
+			.and()
+			.logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/compraencasa")
+			.and()
+			.rememberMe()
+				.tokenValiditySeconds(2592000)
+				.key("Cl4v3.")
+				.rememberMeParameter("checkRememberMe")
+				.userDetailsService(usuarioDetailsService)
+			.and()
+				.exceptionHandling()
+				.accessDeniedHandler(loggingAccessDeniedHandler);
+				
+					
+				
 	}
 
 	@Bean

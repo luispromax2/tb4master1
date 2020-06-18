@@ -32,8 +32,8 @@
 								<td th:text=${cliente.distrito}>.</td>
 								<td th:text=${cliente.password}>.</td>
 								<td>
-								<a th:href="@{'/compraencasa/cliente/edit/' + ${cliente.id}}" class="btn btn-warning"> <i class="fas fa-edit"></i> </a>
-								<a th:href="@{'/compraencasa/cliente/del/' + ${cliente.id}}" class="btn btn-danger"> <i class="fas fa-trash"></i> </a>
+								<a sec:authorize="hasAuthority('ACCESS_EDITCOMORADOR')" th:href="@{'/compraencasa/cliente/edit/' + ${cliente.id}}" class="btn btn-warning"> <i class="fas fa-edit"></i> </a>
+								<a sec:authorize="hasAuthority('ACCESS_DELCOMPRADOR')" th:href="@{'/compraencasa/cliente/del/' + ${cliente.id}}" class="btn btn-danger"> <i class="fas fa-trash"></i> </a>
 								
 								</td>
 							</tr>
@@ -44,7 +44,7 @@
 
 				</div>
 				<div class="card-footer text-center">
-				<a th:href ="@{/compraencasa/cliente/registrar}" class= "btn btn-primary"><i class="fas fa-user-plus"></i> Registrar Cliente</a>
+				<a sec:authorize="hasAuthority('ACCESS_ADDUSERCOMPRADOR')" th:href ="@{/compraencasa/cliente/registrar}" class= "btn btn-primary"><i class="fas fa-user-plus"></i> Registrar Cliente</a>
 				</div>
 			</div>
 		</section>

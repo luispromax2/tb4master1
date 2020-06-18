@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
 <meta charset="utf-8">
 <meta name="viewport"
@@ -37,13 +37,16 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link " th:href="@{/compraencasa/cliente}">Cliente<span class="sr-only">(current)</span></a>
+					<li sec:authorize="hasAnyRole('ROLE_BUYER', 'ROLE_ADMIN')" class="nav-item active"><a class="nav-link " th:href="@{/compraencasa/cliente}">Cliente<span class="sr-only">(current)</span></a>
 					</li>
-					<li class="nav-item"><a class="nav-link "th:href="@{/compraencasa/productos}">Productos</a>
+					<li sec:authorize="hasRole('ROLE_SELLER')" class="nav-item"><a class="nav-link "th:href="@{/compraencasa/productos}">Productos</a>
 					</li>
-					<li class="nav-item"><a class="nav-link " th:href="@{/compraencasa/vendedor}">Vendedor</a>
+					<li sec:authorize="hasAnyRole('ROLE_SELLER', 'ROLE_ADMIN')" class="nav-item"><a class="nav-link " th:href="@{/compraencasa/vendedor}">Vendedor</a>
 					</li>
-					<li class="nav-item "><a class="nav-link" th:href="@{/compraencasa/login}">Login</a></li>
+					<li sec:authorize="isAnonymous()" class="nav-item "><a class="nav-link" th:href="@{/compraencasa/login}">Iniciar Sesión</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item">
+				        <a class="btn btn-secondary" th:href="@{/logout}" aria-disabled="true">Cerrar Sesión: <span sec:authentication="name">Username</span></a>
+				    </li>
 				</ul>
 				<form class="form-inline my-2 my-lg-0">
 					<input class="form-control mr-sm-2" type="search"

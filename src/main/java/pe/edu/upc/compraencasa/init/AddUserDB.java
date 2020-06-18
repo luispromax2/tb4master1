@@ -55,6 +55,8 @@ public class AddUserDB implements CommandLineRunner{
 		
 		admin.addAuthority("ROLE_ADMIN");
 		admin.addAuthority("ACCESS_PRODUCTOAGREGADO");
+		admin.addAuthority("ACCESS_ADDUSERVENDEDOR");
+		admin.addAuthority("ACCESS_ADDUSERCOMPRADOR");
 		admin.addAuthority("ACCESS_EDITCOMORADOR");
 		admin.addAuthority("ACCESS_DELCOMPRADOR");
 		admin.addAuthority("ACCESS_EDITVENDEDOR");

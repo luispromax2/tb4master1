@@ -1,4 +1,4 @@
-package pe.edu.upc.compraencasa.controller;
+/*package pe.edu.upc.compraencasa.controller;
 
 
 import org.springframework.stereotype.Controller;
@@ -19,4 +19,4 @@ public class LoginController {
 		
 		return "/Login/Login";
 	}
-}
+}*/
