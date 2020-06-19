@@ -27,7 +27,7 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-
+	//
 	@NotBlank(message ="No puede estar vacio")
 	@Column(name = "apellidos",length = 50,nullable = false)
 	private String apellidos;
