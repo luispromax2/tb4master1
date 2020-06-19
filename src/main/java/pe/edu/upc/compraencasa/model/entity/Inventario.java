@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Inventario {
-	
+	//
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
