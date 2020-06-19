@@ -29,7 +29,7 @@ public class Factura {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+	//
 	@NotBlank(message ="No puede estar vacio")
 	@Column(name = "fecha_facturacion",nullable = false)
 	@Temporal(value = TemporalType.DATE)
