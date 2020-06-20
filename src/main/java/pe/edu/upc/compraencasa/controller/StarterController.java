@@ -12,4 +12,6 @@ public class StarterController {
 	public String starter() {
 		return "index";
 	}
+	
+	
 }

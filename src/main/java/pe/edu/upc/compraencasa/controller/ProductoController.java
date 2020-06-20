@@ -1,9 +1,16 @@
 package pe.edu.upc.compraencasa.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
-
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +20,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+
+
 
 import pe.edu.upc.compraencasa.model.entity.Producto;
 import pe.edu.upc.compraencasa.model.entity.Vendedor;
@@ -60,7 +72,7 @@ public class ProductoController {
 	}
 	
 	@PostMapping("/save")
-	public String save(@ModelAttribute("producto")Producto producto, Model model, SessionStatus status) {
+	public String save(@ModelAttribute("producto")Producto producto, Model model ,SessionStatus status) {
 		
 		try {
 			productoService.create(producto);
@@ -109,4 +121,8 @@ public class ProductoController {
 		return "redirect:/compraencasa/productos";
 	}
 	
+	@GetMapping("/compra/{id}")
+	public String comprar(@PathVariable("id") Integer id,  Model model) {
+		return "/producto/productoCliente";
+	}
 }

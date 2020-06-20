@@ -54,14 +54,14 @@ public class Cliente {
 	
 	//@NotEmpty(message ="Un cliente debe tener un factura")
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
-	private List<Factura> facturas;
+	private List<Producto> productos;
 	
 	public Cliente() {
-		facturas = new ArrayList<>();
+		productos = new ArrayList<>();
 	}
 	
-	public void addFactura(Factura factura) {
-		facturas.add(factura);
+	public void addProducto(Producto producto) {
+		productos.add(producto);
 		
 	}
 	

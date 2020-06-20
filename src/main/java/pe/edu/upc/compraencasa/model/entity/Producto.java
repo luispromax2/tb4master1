@@ -2,16 +2,15 @@ package pe.edu.upc.compraencasa.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -43,16 +42,23 @@ public class Producto {
 	@Column(name = "costo",nullable = false)
 	private double costo;
 	
-    @ManyToOne()
-	@JoinColumn(name="inventario_id")
-	private Inventario inventario;
-	
 	@ManyToOne
 	@JoinColumn(name = "vendedor_id")
 	private Vendedor vendedor;
 	
-	//
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
+	
+	@OneToOne
+	@JoinColumn(name = "detalleProducto_id")
+	private DetalleProducto detalleProducto;
+
 	@Column(name = "foto", nullable=false)
-	private String Foto;
+	private String foto;
+	
+	@ManyToOne
+	@JoinColumn(name = "compra_id")
+	private Compra compra;
 
 }
