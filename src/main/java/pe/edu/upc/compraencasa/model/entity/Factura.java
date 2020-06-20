@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,7 +28,7 @@ public class Factura {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	//
+	
 	@NotBlank(message ="No puede estar vacio")
 	@Column(name = "fecha_facturacion",nullable = false)
 	@Temporal(value = TemporalType.DATE)
@@ -38,12 +37,12 @@ public class Factura {
 	@NotBlank(message ="No puede estar vacio")
 	@Column(name = "valor_total",nullable = false)
 	private double valorTotal;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="cliente_id", updatable = false, nullable = false)
-	private Cliente cliente;
 	
 	@OneToOne(mappedBy="factura",fetch = FetchType.LAZY)
 	private Compra compra;
+	
+	@OneToOne(mappedBy="factura",fetch = FetchType.LAZY)
+	@JoinColumn(name="detalleFactura_id", updatable = false, nullable = false)
+	private DetalleFactura detalleFactura;
 
 }

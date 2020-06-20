@@ -41,13 +41,20 @@ public class Compra {
 	@JoinColumn(name="factura_id", updatable = false, nullable = false)
 	private Factura factura;
 	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="detalleCarrito_id", updatable = false, nullable = false)
+	private DetalleCarrito detalleCarrito;
+	
 	@OneToMany(mappedBy = "compra", fetch = FetchType.LAZY)
-	private List<Inventario> inventarios;
+	private List<Producto> productos;
 	
 	public Compra() {
-		inventarios = new ArrayList<>();
+		productos = new ArrayList<>();
 	}
-	public void addInventario(Inventario inventario) {
-		inventarios.add(inventario);
+	
+	public void addProducto(Producto producto) {
+		productos.add(producto);
 	}
+	
+	
 }
